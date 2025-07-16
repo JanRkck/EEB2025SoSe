@@ -31,7 +31,7 @@ through the shared RFID tag—no network link is required.
 
 ## 2  Repository structure  
 
-story-cube/
+EEB2025SoSe/
 
 ├── story_cube.py # main-console application
 
