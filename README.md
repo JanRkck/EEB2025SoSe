@@ -57,4 +57,76 @@ pip3 install mfrc522
 pulseaudio --start
 bluetoothctl  # pair, trust, connect
 pactl set-default-sink $(pactl list short sinks | grep a2dp | awk '{print $2}')
+```
 
+## 4  Wiring / assembly guide  
+
+### 4.1  Main Console (Cube 1)
+
+| Signal | Pi GPIO pin | LCD pin | MFRC522 pin | Notes |
+|--------|-------------|---------|-------------|-------|
+| 5 V    | 2 or 4      | VDD     | VCC         | LCD back-light also on 5 V via 220 Ω |
+| 3 V3   | 1           | —       | —           | MFRC522 uses on-board 3 V regulator |
+| GND    | 6, 9, 14…   | GND     | GND         | Common ground |
+| RS     | 26          | RS      | —           | |
+| E      | 19          | E       | —           | |
+| D4–D7  | 13 / 6 / 5 / 21 | D4–D7 | — | |
+| MOSI   | 10          | —       | MOSI        | SPI 0 |
+| MISO   | 9           | —       | MISO        | SPI 0 |
+| SCK    | 11          | —       | SCK         | SPI 0 |
+| CE0    | 8           | —       | SDA (SS)    | Chip-select |
+| RST    | 25          | —       | RST         | Reset line |
+
+Contrast network: **2 .4 kΩ (5 V → V0)**  
+gives ≈ 1 .5 V on V0 → clear background, dark glyphs.
+
+### 4.2  Number Cube (Cube 2)
+
+| Signal | Pi GPIO pin | OLED | MFRC522 | Button |
+|--------|-------------|------|---------|--------|
+| 3 V3   | 1           | VCC  | —       | — |
+| 5 V    | 2           | —    | VCC     | — |
+| GND    | 6           | GND  | GND     | One leg of both switches |
+| SDA    | 2           | SDA  | —       | — |
+| SCL    | 3           | SCL  | —       | — |
+| MOSI   | 10          | —    | MOSI    | — |
+| MISO   | 9           | —    | MISO    | — |
+| SCK    | 11          | —    | SCK     | — |
+| CE0    | 8           | —    | SDA (SS)| — |
+| RST    | 25          | —    | RST     | — |
+| Button ▲ | 17        | —    | —       | other leg to GND |
+| Button ▼ | 27        | —    | —       | other leg to GND |
+
+---
+
+## 5  Running the prototype
+
+### 5.1  Manual start (development)
+
+```bash
+# Main Console
+ssh pi@maincube.local
+cd /home/pi//story_cube
+python3 story_cube.py
+
+# Number Cube
+ssh pi@numbercube.local
+cd /home/pi
+python3 number_cube.py
+```
+
+## 6  Libraries used
+
+| Package | Version tested | Purpose |
+|---------|---------------|---------|
+| `mfrc522` | 1.4.1 | SPI driver for the MFRC522 reader-writer (read / write) |
+| `RPLCD` | 2.0.4 | Control of the HD44780 16 × 2 LCD in 4-bit mode |
+| `luma.oled` | 3.13.0 | High-level graphics API for the SH1106 OLED |
+| `Pillow` | 10.3.0 | Font rasterisation backend used by *luma.oled* |
+| `gpiozero` | 2.0 | Simplified button handling and pull-up configuration |
+| `RPi.GPIO` | 0.7.1 | Low-level pin access required by **RPLCD** |
+| `pygame` (mixer) | 2.6.1 | Playback of WAV / MP3 files through PulseAudio |
+| `bluez` | 5.66 | Bluetooth stack (pairing, A2DP profile support) |
+| `pulseaudio` | 16.1 | User-space audio server |
+| `pulseaudio-module-bluetooth` | 16.1 | Bridges PulseAudio to BlueZ (creates `a2dp_sink`) |
+| `pulseaudio-utils` | 16.1 | CLI tools (`pactl`, `pacmd`) for sink selection |
