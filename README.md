@@ -39,7 +39,7 @@ EEB2025SoSe/
 
 ├── story.py # scene metadata (audio, LCD text, answers)
 
-├── story/ # audio clips 
+├── audio/ # audio clips 
 
 └── README.md # this file
 
