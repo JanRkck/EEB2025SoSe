@@ -39,7 +39,7 @@ story-cube/
 
 ├── story.py # scene metadata (audio, LCD text, answers)
 
-├── story/ # audio clips 00_title.wav … wrong.wav
+├── story/ # audio clips 
 
 └── README.md # this file
 
