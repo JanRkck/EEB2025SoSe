@@ -1,5 +1,3 @@
-# EEB2025SoSe
-
 # Story-Math Cubes  
 An interactive, RFID-based learning game for early primary pupils  
 ==================================================================
@@ -34,11 +32,11 @@ through the shared RFID tag—no network link is required.
 ## 2  Repository structure  
 
 story-cube/
-├─ story_cube.py # main-console application
-├─ number_cube.py # number-cube firmware
-├─ story.py # scene metadata (audio, LCD text, answers)
-├─ story/ # audio clips 00_title.wav … wrong.wav
-└─ README.md # this file
+├── story_cube.py # main-console application
+├── number_cube.py # number-cube firmware
+├── story.py # scene metadata (audio, LCD text, answers)
+├── story/ # audio clips 00_title.wav … wrong.wav
+└── README.md # this file
 
 
 ## 3  Software installation  
@@ -130,3 +128,7 @@ python3 number_cube.py
 | `pulseaudio` | 16.1 | User-space audio server |
 | `pulseaudio-module-bluetooth` | 16.1 | Bridges PulseAudio to BlueZ (creates `a2dp_sink`) |
 | `pulseaudio-utils` | 16.1 | CLI tools (`pactl`, `pacmd`) for sink selection |
+
+
+
+© 2025 — Prototype developed at the UzK EEB Lab
