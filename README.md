@@ -33,6 +33,7 @@ through the shared RFID tag—no network link is required.
 
 story-cube/
 ├── story_cube.py # main-console application
+
 ├── number_cube.py # number-cube firmware
 ├── story.py # scene metadata (audio, LCD text, answers)
 ├── story/ # audio clips 00_title.wav … wrong.wav
